@@ -1,0 +1,105 @@
+<div class="pt-5">
+    <div class="bg-dark text-center py-5">
+        <div class="bg-white w-50 m-auto p-2">
+            <div class="text-secondary pt-4">
+                <h2>Paycarz - Top car rental deals - Save big</h2>
+            </div>
+            <div class="color-yellow pt-4">
+                <h3>ACCOUNT SIGNUP - CUSTOMER</h3>
+            </div>
+            <div class="text-left w-75 m-auto">
+                <form [formGroup]="customerSignUpForm" (ngSubmit)="onSubmit()">
+                    <div class="mt-4">
+                        <div class="pt-2 form-group">
+                            <label for="customerName">NAME</label>
+                            <input type="text" name="customerName" class="form-control" formControlName="customerName">
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="emailId">EMAIL</label>
+                            <input type="text" name="emailId" class="form-control" formControlName="emailId">
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="mobileNo">MOBILE NO</label>
+                            <input type="text" name="mobileNo" class="form-control" formControlName="mobileNo">
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label>GENDER</label>
+                            <div class="d-flex">
+                                <div class="px-2">
+                                    <input type="radio" name="gender" id="male" value="male" formControlName="gender">
+                                    <label for="male" class="pl-1">Male</label>
+                                </div>
+                                <div class="px-2">
+                                    <input type="radio" name="gender" id="female" value="female" formControlName="gender">
+                                    <label for="female" class="pl-1">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="username">USERNAME</label>
+                            <input type="text" name="username" class="form-control" formControlName="username">
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="password">PASSWORD</label>
+                            <input type="password" name="password" class="form-control" formControlName="password">
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="country">COUNTRY</label>
+                            <select id="country" class="form-control" name="country" formControlName="country"
+                                (change)="getStatesList()">
+                                <option [ngValue]="null" disabled>Select County</option>
+                                <option *ngFor="let country of countries" [ngValue]="country.countryId">{{country.countryName}}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="state">STATE</label>
+                            <select id="state" class="form-control" name="state" formControlName="state"
+                                (change)="getCitiesList()">
+                                <option [ngValue]="null" disabled>Select State</option>
+                                <option *ngFor="let state of states" [ngValue]="state.stateId">{{state.stateName}}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="city">CITY</label>
+                            <select id="city" class="form-control" name="city" formControlName="city">
+                                <option [ngValue]="null" disabled>Select City</option>
+                                <option *ngFor="let city of cities" [ngValue]="city.cityId">{{city.cityName}}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="pt-2 form-group">
+                            <label for="address">ADDRESS</label>
+                            <input type="text" name="address" class="form-control" formControlName="address">
+                        </div>
+
+                        <div>
+                            <span class="help-block" *ngIf="!customerSignUpForm.valid && customerSignUpForm.touched">
+                                Please enter valid details!
+                            </span>
+                        </div>
+
+                        <div class="py-3 w-50 m-auto form-group">
+                            <input type="submit" name="submitBtn" formControlName="submitBtn"
+                                class="form-control btn font-weight-bold bg-yellow text-white">
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            
+            
+
+        </div>
+    </div>
+</div>

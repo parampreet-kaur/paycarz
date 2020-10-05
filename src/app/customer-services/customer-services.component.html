@@ -1,0 +1,12 @@
+<div class="text-center pt-5" id="appCustomerServices">
+    <h1>Customer Services</h1>
+    <p>Best Customer service in the world</p>
+    <hr>
+</div>
+<div class="d-flex flex-wrap mx-5 pt-3">
+        <div class="col-sm-6" *ngFor = "let customerService of customerServices">
+            <app-customer-service-item 
+            [customerService] = customerService
+            ></app-customer-service-item>
+        </div>
+</div>

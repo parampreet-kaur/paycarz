@@ -1,0 +1,9 @@
+<div class="text-center pt-5" id="appGallery">
+    <h1>Gallery</h1>
+    <hr>
+</div>
+<div class="d-flex flex-wrap mx-5 pt-3">
+        <div class="col-sm-4" *ngFor = "let galleryImage of galleryImages">
+            <app-gallery-item [galleryImage] = galleryImage></app-gallery-item>
+        </div>
+</div>
