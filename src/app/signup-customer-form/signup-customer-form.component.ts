@@ -122,6 +122,7 @@ export class SignupCustomerFormComponent implements OnInit, OnDestroy {
           });
         },
         errorMessage => {
+          this.isLoading = false;
           this.errorMessage = errorMessage;
         });
       

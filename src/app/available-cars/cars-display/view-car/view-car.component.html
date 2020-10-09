@@ -4,7 +4,7 @@
     <div class="">
         <h4 class="text-secondary pt-5 font-weight-bold">Car Images</h4>
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="w-25 mx-3" *ngFor = "let galleryImage of imagesUrlList">
+            <div class="w-30 mx-3" *ngFor = "let galleryImage of imagesUrlList">
                 <app-gallery-item [galleryImage] = galleryImage [imageHeight]="270"></app-gallery-item>
             </div>
         </div>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="text-center w-50 border-yellow">
-                <div class="m-auto p-2 pb-3 px-5 w-50" *ngIf="carAgency">
+                <div class="m-auto p-2 pb-3 px-3 w-50" *ngIf="carAgency">
                     <div class="text-center text-deco-underline py-3">
                         <h4>Agency details</h4>
                     </div>
@@ -88,7 +88,7 @@
     
         <div *ngIf="isBooked">
             <h3 class="color-yellow">Congratulations, your car is booked!</h3>
-            <div class="note">(Note: This app was made just for Angular practice purpose. If you have any feedback for the developer of this project, then click below link and go to the <span class="font-weight-bold">Contact</span> section of the Home page and provide your feedback there. )</div>
+            <div class="note">(Note: This app was made just for Angular practice purpose. If you have any feedback for the developer of this project, then click below link and go to the <span class="font-weight-bold">Contact</span> section of the Home page and provide your valuable feedback there.)</div>
             <a class="nav-link cursor-pointer" (click)="logout()">Logout and go to Home page</a>
         </div>
     </div>

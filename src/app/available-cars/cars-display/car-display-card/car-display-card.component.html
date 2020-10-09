@@ -1,5 +1,8 @@
 <div class="text-center py-3">
-    <div>
+    <div *ngIf="isLoading" class="loading-div">
+        <app-loading-page></app-loading-page>
+    </div>
+    <div *ngIf="!isLoading">
         <img width="400px" src="{{imageUrl}}">
     </div>
     <div class="pb-1">

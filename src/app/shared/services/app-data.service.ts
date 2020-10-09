@@ -18,15 +18,6 @@ import { AgencyOwnerModel } from '../models/agency-owner.model';
 export class AppDataService{
 
     constructor(private http: HttpClient, private authService: AuthService){
-        // this.http
-        //     .post(
-        //         'https://paycarz.firebaseio.com/headerImages.json',
-        //         {
-        //             'imageUrl': 'https://pngriver.com/wp-content/uploads/2018/04/Download-Car-PNG-Pic.png',
-        //         }
-        //     ).subscribe(resData => {
-
-        //     });
     }
 
     getCategories(){
@@ -170,13 +161,15 @@ export class AppDataService{
         ).subscribe();
 
         //updating the customerId
-        this.http.delete('https://paycarz.firebaseio.com/customerId.json').subscribe();
-        this.http.post(
-            'https://paycarz.firebaseio.com/customerId.json',
-            {
-                'currentValue': customer.customerId
-            }
-        ).subscribe();
+        this.http.delete('https://paycarz.firebaseio.com/customerId.json').subscribe(data => {
+            this.http.post(
+                'https://paycarz.firebaseio.com/customerId.json',
+                {
+                    'currentValue': customer.customerId
+                }
+            ).subscribe();
+        });
+        
     }
 
     getCurrentCustomerId(){
@@ -224,13 +217,15 @@ export class AppDataService{
         ).subscribe();
 
         //updating the feedbackId
-        this.http.delete('https://paycarz.firebaseio.com/feedbackId.json').subscribe();
-        this.http.post(
-            'https://paycarz.firebaseio.com/feedbackId.json',
-            {
-                'currentValue': feedback.feedbackId
-            }
-        ).subscribe();
+        this.http.delete('https://paycarz.firebaseio.com/feedbackId.json').subscribe(data => {
+            this.http.post(
+                'https://paycarz.firebaseio.com/feedbackId.json',
+                {
+                    'currentValue': feedback.feedbackId
+                }
+            ).subscribe();
+        });
+        
     }
 
     getCurrentFeedbackId(){

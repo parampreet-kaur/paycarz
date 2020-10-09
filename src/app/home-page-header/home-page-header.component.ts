@@ -25,7 +25,7 @@ export class HomePageHeaderComponent implements OnInit {
   
   showDivs(n: number) {
     var image = document.getElementsByClassName("my-slides");
-    var dots = document.getElementsByClassName("demo");
+    var dots = document.getElementsByClassName("circle");
     if (n > image.length) {this.slideIndex = 1}
     if (n < 1) {this.slideIndex = image.length}
     for (let i = 0; i < image.length; i++) {
@@ -35,7 +35,7 @@ export class HomePageHeaderComponent implements OnInit {
     for (let i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" bg-white", "");
     }
-    image[this.slideIndex-1].classList.add('d-block');  
+    image[this.slideIndex-1].classList.add('d-block'); 
     image[this.slideIndex-1].classList.remove('d-none');
     dots[this.slideIndex-1].className += " bg-white";
   }

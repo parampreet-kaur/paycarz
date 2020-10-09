@@ -7,8 +7,11 @@
             <span> Paycarz/250, Amritsar, Punjab, India</span>
         </div>
     </div>
-    <div class="d-flex align-items-end">
-        <div class="col-sm-8 col-xs-12 pl-0 pb-3">
+    <div class="d-flex">
+        <div *ngIf="isLoading" class="col-sm-8 col-xs-12 pl-0 pb-3">
+            <app-loading-page></app-loading-page>
+        </div>
+        <div *ngIf="!isLoading" class="col-sm-8 col-xs-12 pl-0 pb-3">
             <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
                 <div class="mt-4">
                     <div class="d-flex">

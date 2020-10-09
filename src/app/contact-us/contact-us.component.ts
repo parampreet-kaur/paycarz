@@ -12,6 +12,7 @@ import { AppDataService } from '../shared/services/app-data.service';
 })
 export class ContactUsComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean;
   feedbackForm: FormGroup;
   feedback: FeedbackModel;
   authServiceSub: Subscription;
@@ -33,6 +34,7 @@ export class ContactUsComponent implements OnInit, OnDestroy {
   onSubmit(){
     if(this.feedbackForm.valid){
       this.errorMessage = null;
+      this.isLoading = true;
       this.authServiceSub = this.appDataService.getCurrentFeedbackId().subscribe(id => {
         this.feedback = {
           'feedbackId': id.currentValue+1,
@@ -45,9 +47,11 @@ export class ContactUsComponent implements OnInit, OnDestroy {
           'status': FeedbackStatus.notApproved
         };
         this.appDataService.addNewFeedback(this.feedback);
+        this.isLoading = false;
         this.router.navigate(['/paycarz/feedback-submitted']);
       },
       errorMessage => {
+        this.isLoading = false;
         this.errorMessage = errorMessage;
       });
     }

@@ -18,7 +18,7 @@ export class ViewCarComponent implements OnInit, OnDestroy {
 
   bookCar: FormGroup;
   isBooked: boolean;
-
+  errorMessage: string;
   bookingDetails: BookingModel;
   selectedCar: CarModel; 
   imagesUrlList: string[];
@@ -52,6 +52,8 @@ export class ViewCarComponent implements OnInit, OnDestroy {
       });
       if(categoryNames)
         this.categoryName = categoryNames[0];
+    }, error => {
+      this.errorMessage = "An unknown error occurred!";
     });
 
     this.subCategoriesSub = this.appDataService.getSubCategories().subscribe(subCategoriesList => {
@@ -66,6 +68,8 @@ export class ViewCarComponent implements OnInit, OnDestroy {
       });
       if(subCategoryNames)
         this.subCategoryName = subCategoryNames[0];
+    }, error => {
+      this.errorMessage = "An unknown error occurred!";
     });
 
     this.agenciesSub = this.appDataService.getAgencies().subscribe(agenciesList => {
@@ -76,6 +80,8 @@ export class ViewCarComponent implements OnInit, OnDestroy {
         }
       });
       this.carAgency = selectedAgency[0];
+    }, error => {
+      this.errorMessage = "An unknown error occurred!";
     });
 
     

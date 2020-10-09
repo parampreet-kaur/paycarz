@@ -13,6 +13,7 @@ import { AppDataService } from 'src/app/shared/services/app-data.service';
 })
 export class CarDisplayCardComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean;
   @Input() car: CarModel;
   carImageSub: Subscription;
   imagesUrlList: string[];
@@ -27,6 +28,7 @@ export class CarDisplayCardComponent implements OnInit, OnDestroy {
     this.viewCar = new FormGroup({
       'view' : new FormControl("View")
     });
+    this.isLoading = true;
     this.carImageSub = this.appDataService.getCarImages().subscribe(carImagesList => {
       let allCarImages = carImagesList;
       let filteredImages = allCarImages.filter(carImage => {
@@ -38,6 +40,7 @@ export class CarDisplayCardComponent implements OnInit, OnDestroy {
       });
       this.imagesUrlList = filteredImages;
       this.imageUrl = filteredImages[0];
+      this.isLoading = false;
     });
     this.bookingDetails = JSON.parse(this.route.snapshot.queryParams['bookingDetails']);
   }

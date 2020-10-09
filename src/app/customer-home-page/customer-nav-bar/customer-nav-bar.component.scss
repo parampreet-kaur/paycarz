@@ -1,12 +1,14 @@
 $light-color: #f8f9fa;
+$secondary-color: #6c757d;
+
 .nav-bar-ghost{
     min-height: 3.5rem;
 }
 
-.cursor-pointer{
-    cursor: pointer;
+a{
+    color: $secondary-color;
+    &:hover{
+        background-color: darken($light-color, 3%) !important;
+    }
 }
 
-a:hover{
-    background-color: darken($light-color, 3%) !important;
-}

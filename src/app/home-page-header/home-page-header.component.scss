@@ -1,9 +1,5 @@
 $primary-color : #f4c430;
 
-.font-size-2{
-    font-size: 2rem;
-}
-
 .angle-color{
     color: white;
     &:hover{
@@ -11,19 +7,7 @@ $primary-color : #f4c430;
     }
 }
 
-.bg-yellow{
-    background-color: $primary-color;
-}
-
-.bg-white{
-    background-color: white;
-}
-
-.bg-transparent{
-    background-color: transparents;
-}
-
-.demo{
+.circle{
     &:hover{
         background-color: white;
     }
