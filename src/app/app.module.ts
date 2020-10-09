@@ -34,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SliderDirective } from './shared/directives/slider.directive';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ReviewItemComponent } from './reviews/review-item/review-item.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { LoadingPageComponent } from './loading-page/loading-page.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { ReviewItemComponent } from './reviews/review-item/review-item.component
     FooterComponent,
     SliderDirective,
     ContactUsComponent,
-    ReviewItemComponent
+    ReviewItemComponent,
+    LoadingSpinnerComponent,
+    LoadingPageComponent
   ],
   imports: [
     BrowserModule,

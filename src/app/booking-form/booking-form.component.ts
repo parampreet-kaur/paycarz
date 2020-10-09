@@ -18,6 +18,9 @@ import { AppDataService } from '../shared/services/app-data.service';
 export class BookingFormComponent implements OnInit, OnDestroy {
 
   @Input() requireLogIn: boolean;
+
+  isLoading: boolean = false;
+  errorMessage: string;
   bookingDetails: BookingModel;
   bookingForm: FormGroup;
 
@@ -44,18 +47,31 @@ export class BookingFormComponent implements OnInit, OnDestroy {
       'fromCities' : new FormControl(null, Validators.required),
       'toStates' : new FormControl(null, Validators.required),
       'toCities' : new FormControl(null, Validators.required),
-      'dateOfTravel' : new FormControl(null, Validators.required),
+      'dateOfTravel' : new FormControl(null, [Validators.required, this.verifyDate.bind(this)]),
       'registeredUser' : new FormControl('yes'),
       'submitBtn' : new FormControl("BOOK CAR")
     });
 
     this.categoriesSub = this.appDataService.getCategories().subscribe(categoriesList => {
       this.categories = categoriesList;
+    }, error => {
+      this.errorMessage = "Unknown error occurred!";
     });
     this.statesSub = this.appDataService.getStates().subscribe(statesList => {
       this.fromStates = statesList;
       this.toStates = statesList;
+    }, error => {
+      this.errorMessage = "Unknown error occurred!";
     });
+  }
+
+  verifyDate(control: FormControl) : {[s: string]: boolean}{
+    let selectedDate = new Date(control.value);
+    let currentDate = new Date();
+    if(selectedDate <= currentDate)
+      return {"invalidDate" : true};
+    else
+      return null;
   }
 
   getSubCategoriesList(){
@@ -67,6 +83,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
             return subCategory;
         }
       });
+    }, error => {
+      this.errorMessage = "Unknown error occurred!";
     });
     this.bookingForm.patchValue({
       'subCategories': this.subCategories
@@ -84,6 +102,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
           if(city.stateId === this.bookingForm.value.fromStates){
               return city;
           }
+      }, error => {
+        this.errorMessage = "Unknown error occurred!";
       });
       
       this.bookingForm.patchValue({
@@ -103,6 +123,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
           if(city.stateId === this.bookingForm.value.toStates){
               return city;
           }
+      }, error => {
+        this.errorMessage = "Unknown error occurred!";
       });
       
       this.bookingForm.patchValue({

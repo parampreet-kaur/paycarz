@@ -8,9 +8,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class CustomerNavBarComponent implements OnInit {
 
+  customerLoginId: string;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.customerLoginId = this.authService.user.value.email;
   }
 
   logout(){

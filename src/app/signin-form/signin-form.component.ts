@@ -14,6 +14,7 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class SigninFormComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean;
   signInForm: FormGroup;
   errorMessage: string = null;
   authServiceSub: Subscription;
@@ -33,8 +34,10 @@ export class SigninFormComponent implements OnInit, OnDestroy {
   onSubmit(){
     if(this.signInForm.valid)
     {
+      this.isLoading = true;
       this.authServiceSub = this.authService.signIn(this.signInForm.value.email, this.signInForm.value.password)
         .subscribe(responseData => {
+          this.isLoading = false;
           if(this.bookingDetails)
           {
             this.router.navigate(['/paycarz-customer/available-cars'], { queryParams: {bookingDetails: this.bookingDetails}});

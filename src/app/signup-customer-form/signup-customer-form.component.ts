@@ -17,6 +17,7 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class SignupCustomerFormComponent implements OnInit, OnDestroy {
 
+  isLoading:boolean;
   customerSignUpForm: FormGroup;
   countries: CountryModel[];
   states: StateModel[];
@@ -93,6 +94,7 @@ export class SignupCustomerFormComponent implements OnInit, OnDestroy {
   onSubmit(){
     if(this.customerSignUpForm.valid)
     {
+      this.isLoading = true;
       this.authServiceSub = this.authService.signUp(this.customerSignUpForm.value.emailId, this.customerSignUpForm.value.password)
         .subscribe(responseData => {
           this.errorMessage = null;
@@ -110,7 +112,7 @@ export class SignupCustomerFormComponent implements OnInit, OnDestroy {
               'address': this.customerSignUpForm.value.address 
             };
             this.appDataService.addNewCustomer(customer);
-
+            this.isLoading = false;
             if(this.bookingDetails){
               this.router.navigate(['/paycarz-customer/available-cars'], { queryParams: {bookingDetails: this.bookingDetails}});
             }

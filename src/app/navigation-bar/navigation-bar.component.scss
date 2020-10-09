@@ -20,6 +20,7 @@ a{
     }
 
     &:hover{
+        background-color: darken($light-color, 3%) !important;
         color: darken($secondary-color, 30%);
     }
 }

@@ -1,4 +1,7 @@
-<div class="bg-dark text-center py-5">
+<div *ngIf="isLoading">
+    <app-loading-page></app-loading-page>
+</div>
+<div *ngIf="!isLoading" class="bg-dark text-center py-5">
     <div class="bg-white w-50 m-auto p-2">
         <div class="text-secondary pt-4">
             <h2>Paycarz - Top car rental deals - Save big</h2>
@@ -6,7 +9,7 @@
         <div class="color-yellow pt-4">
             <h3>SIGN IN</h3>
         </div>
-        <div class="text-left w-75 m-auto">
+        <div class="text-left w-75 m-auto text-secondary">
             <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                 <div class="mt-4">
                     
@@ -40,4 +43,6 @@
         </div>
     </div>
 </div>
-<app-footer></app-footer>
+<div *ngIf="!isLoading">
+    <app-footer></app-footer>
+</div>

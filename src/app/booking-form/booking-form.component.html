@@ -20,7 +20,7 @@
             <div class="pt-2 form-group">
                 <table class="w-100">
                     <tr>
-                        <td rowspan="2" class="bg-light w-25 text-left pl-2"><i class="las la-map-marker-alt"></i> From
+                        <td rowspan="2" class="bg-light w-25 text-left pl-2 font-weight-bold text-secondary"><i class="las la-map-marker-alt"></i> From
                         </td>
                         <td>
                             <select class="form-control" name="fromStates" formControlName="fromStates"
@@ -45,7 +45,7 @@
             <div class="pt-2 form-group">
                 <table class="w-100">
                     <tr>
-                        <td rowspan="2" class="bg-light w-25 text-left pl-2"><i class="las la-map-marker-alt"></i> To
+                        <td rowspan="2" class="bg-light w-25 text-left pl-2 font-weight-bold text-secondary"><i class="las la-map-marker-alt"></i> To
                         </td>
                         <td>
                             <select id="toState" class="form-control" name="toStates" formControlName="toStates"
@@ -69,7 +69,7 @@
             <div class="pt-2 form-group">
                 <table class="w-100">
                     <tr>
-                        <td rowspan="2" class="bg-light w-50 text-left pl-2"><i class="las la-calendar-alt"></i> Date of
+                        <td rowspan="2" class="bg-light w-50 text-left pl-2 text-secondary font-weight-bold"><i class="las la-calendar-alt"></i> Date of
                             Travel</td>
                         <td>
                             <input type="date" name="dateOfTravel" class="form-control" formControlName="dateOfTravel">
@@ -78,17 +78,17 @@
                 </table>
             </div>
             <div *ngIf="requireLogIn" class="pt-2 form-group d-flex">
-                <div class="pl-1">
+                <div class="pl-1 text-secondary">
                     Are you a registered user?
                 </div>
                 <div class="d-flex pl-1 form-group mb-0">
                     <div class="px-2">
                         <input type="radio" name="registeredUser" id="radioYes" value="yes" formControlName="registeredUser">
-                        <label for="radioYes" class="pl-1">Yes</label>
+                        <label for="radioYes" class="pl-1 text-secondary">Yes</label>
                     </div>
                     <div class="px-2">
                         <input type="radio" name="registeredUser" id="radioNo" value="no" formControlName="registeredUser">
-                        <label for="radioNo" class="pl-1">No</label>
+                        <label for="radioNo" class="pl-1 text-secondary">No</label>
                     </div>
                     
                 </div>
@@ -98,9 +98,12 @@
                     Please enter valid details!
                 </span>
             </div>
+            <div class="alert alert-danger text-center" *ngIf="errorMessage">
+                <span>{{errorMessage}}</span>
+            </div>
             <div class="pt-2 form-group">
                 <input type="submit" name="submitBtn" formControlName="submitBtn"
-                    class="form-control btn font-weight-bold bg-yellow text-white">
+                    class="form-control btn font-weight-bold bg-yellow text-white w-auto">
             </div>
         </form>
     </div>
