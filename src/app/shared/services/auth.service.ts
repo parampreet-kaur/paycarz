@@ -69,9 +69,14 @@ export class AuthService{
         }
     }
 
-    logout(){
+    logout(goToHomePage?: boolean){
         this.user.next(null);
-        this.router.navigate(['/paycarz/app-signin-form']);
+        if(goToHomePage){
+            this.router.navigate(['/paycarz/home']);
+        }
+        else{
+            this.router.navigate(['/paycarz/app-signin-form']);
+        }
         localStorage.removeItem('userData');
         if(this.tokenExpirationTimer){
             clearTimeout(this.tokenExpirationTimer);

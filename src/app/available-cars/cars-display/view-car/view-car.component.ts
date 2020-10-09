@@ -7,6 +7,7 @@ import { AgencyModel } from 'src/app/shared/models/agency.model';
 import { BookingModel } from 'src/app/shared/models/booking.model';
 import { CarModel } from 'src/app/shared/models/car.model';
 import { AppDataService } from 'src/app/shared/services/app-data.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-view-car',
@@ -29,7 +30,7 @@ export class ViewCarComponent implements OnInit, OnDestroy {
   categoriesSub: Subscription;
   subCategoriesSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private appDataService: AppDataService) { }
+  constructor(private route: ActivatedRoute, private appDataService: AppDataService, private authService: AuthService) { }
 
   ngOnInit() {
     this.bookCar = new FormGroup({
@@ -82,6 +83,10 @@ export class ViewCarComponent implements OnInit, OnDestroy {
 
   onSubmit(){
     this.isBooked = true;
+  }
+
+  logout(){
+    this.authService.logout(true);
   }
 
   ngOnDestroy(){
