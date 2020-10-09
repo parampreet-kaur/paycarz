@@ -1,43 +1,43 @@
-<div class="pt-5">
-    <div class="bg-dark text-center py-5">
-        <div class="bg-white w-50 m-auto p-2">
-            <div class="text-secondary pt-4">
-                <h2>Paycarz - Top car rental deals - Save big</h2>
-            </div>
-            <div class="color-yellow pt-4">
-                <h3>SIGN IN</h3>
-            </div>
-            <div class="text-left w-75 m-auto">
-                <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-                    <div class="mt-4">
-                        
-                        <div class="pt-2 form-group">
-                            <label for="username">USERNAME</label>
-                            <input type="text" name="username" class="form-control" formControlName="username">
-                        </div>
-                        
-                        <div class="pt-2 form-group">
-                            <label for="password">PASSWORD</label>
-                            <input type="password" name="password" class="form-control" formControlName="password">
-                        </div>
-
-                        <div>
-                            <span class="help-block" *ngIf="(!signInForm.valid && signInForm.touched) || (isUserInvalid)">
-                                Please enter valid credentials!
-                            </span>
-                        </div>
-
-                        <div class="py-3 w-25 m-auto form-group">
-                            <input type="submit" name="submitBtn" formControlName="submitBtn"
-                                class="form-control btn font-weight-bold bg-yellow text-white">
-                        </div>
-                        
+<div class="bg-dark text-center py-5">
+    <div class="bg-white w-50 m-auto p-2">
+        <div class="text-secondary pt-4">
+            <h2>Paycarz - Top car rental deals - Save big</h2>
+        </div>
+        <div class="color-yellow pt-4">
+            <h3>SIGN IN</h3>
+        </div>
+        <div class="text-left w-75 m-auto">
+            <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+                <div class="mt-4">
+                    
+                    <div class="pt-2 form-group">
+                        <label for="email">EMAIL ID</label>
+                        <input type="text" name="email" class="form-control" formControlName="email">
                     </div>
-                </form>
-            </div>
-            
-            
+                    
+                    <div class="pt-2 form-group">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" name="password" class="form-control" formControlName="password">
+                    </div>
 
+                    <div>
+                        <span class="help-block" *ngIf="(signInForm.controls.submitBtn.touched && (!signInForm.valid && signInForm.touched))">
+                            Please enter valid credentials!
+                        </span>
+                    </div>
+
+                    <div class="py-3 w-25 m-auto form-group">
+                        <input type="submit" name="submitBtn" formControlName="submitBtn"
+                            class="form-control btn font-weight-bold bg-yellow text-white">
+                    </div>
+
+                    <div class="alert alert-danger text-center" *ngIf="errorMessage">
+                        <span>{{errorMessage}}</span>
+                    </div>
+                    
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<app-footer></app-footer>

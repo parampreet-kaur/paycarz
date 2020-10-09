@@ -1,0 +1,42 @@
+<div class="text-center m-auto py-5">
+    <h1 class="text-secondary">Car View</h1>
+    <hr>
+    <div class="">
+        <h4 class="text-secondary pt-5">Car Images</h4>
+        <div class="d-flex flex-wrap">
+            <div class="col-lg-4 col-md-6" *ngFor = "let galleryImage of imagesUrlList">
+                <app-gallery-item [galleryImage] = galleryImage [imageHeight]="270"></app-gallery-item>
+            </div>
+        </div>
+    </div>  
+    <div class="">
+        <h4 class="text-secondary pt-5">Booking details</h4>
+        <div class="text-left">
+            <table>
+                <tr class="text-center">
+                    <td colspan="2">Car details</td>
+                </tr>
+                <tr>
+                    <td>Car category</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Car type</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Color</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Price per KM</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Driver price</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>  
+</div>

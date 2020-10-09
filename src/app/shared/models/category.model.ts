@@ -1,6 +1,6 @@
 export interface CategoryModel{
-    categoryId: number, 
-    categoryName: string,
-    carType: string,
-    id?: string
+    categoryId: number; 
+    categoryName: string;
+    carType: string;
+    id?: string;
 }

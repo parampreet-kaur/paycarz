@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GalleryItemComponent implements OnInit {
 @Input() galleryImage : string;
+@Input() imageHeight: number;
 
   constructor() { }
 

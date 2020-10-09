@@ -7,15 +7,24 @@ import { map } from 'rxjs/operators';
 import { CountryModel } from '../models/country.model';
 import { CustomerModel } from '../models/customer.model';
 import { IdentifiersModel } from '../models/identifiers.model';
+import { AuthService } from './auth.service';
+import { CarModel } from '../models/car.model';
+import { CarImageModel } from '../models/car-image.model';
+import { FeedbackModel } from '../models/feedback.model';
+import { HeaderImageModel } from '../models/header-image.model';
 
 export class AppDataService{
 
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient, private authService: AuthService){
         // this.http
         //     .post(
-        //         'https://paycarz.firebaseio.com/identifiers.json',
-        //         this.identifiers[0]
-        //     ).subscribe();
+        //         'https://paycarz.firebaseio.com/headerImages.json',
+        //         {
+        //             'imageUrl': 'https://pngriver.com/wp-content/uploads/2018/04/Download-Car-PNG-Pic.png',
+        //         }
+        //     ).subscribe(resData => {
+
+        //     });
     }
 
     getCategories(){
@@ -113,6 +122,44 @@ export class AppDataService{
             );
     }
 
+    getCars(){
+        return this.http
+            .get<{ [key: string]: CarModel }>(
+                'https://paycarz.firebaseio.com/cars.json'
+            )
+            .pipe(
+                map(responseData => {
+                    const carsArray: CarModel[] = [];
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            carsArray.push({ ...responseData[key]});
+                        }
+                    }
+                    return carsArray;
+                })
+            );
+    }
+
+    getCarImages(){
+        return this.http
+            .get<{ [key: string]: CarImageModel }>(
+                'https://paycarz.firebaseio.com/carImages.json'
+            )
+            .pipe(
+                map(responseData => {
+                    const carImagesArray: CarImageModel[] = [];
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            carImagesArray.push({ ...responseData[key]});
+                        }
+                    }
+                    return carImagesArray;
+                })
+            );
+    }
+
     addNewCustomer(customer: CustomerModel){
         //update customer
         this.http.post(
@@ -120,24 +167,28 @@ export class AppDataService{
             customer
         ).subscribe();
 
-        //update customerId in identifiers
+        //updating the customerId
+        this.http.delete('https://paycarz.firebaseio.com/customerId.json').subscribe();
+        this.http.post(
+            'https://paycarz.firebaseio.com/customerId.json',
+            {
+                'currentValue': customer.customerId
+            }
+        ).subscribe();
     }
 
     getCurrentCustomerId(){
         return this.http
             .get<{ [key: string]: IdentifiersModel }>(
-                'https://paycarz.firebaseio.com/identifiers.json'
+                'https://paycarz.firebaseio.com/customerId.json'
             )
             .pipe(
                 map(responseData => {
-                    let customerId: number;
+                    let customerId: IdentifiersModel;
                     for(const key in responseData)
                     {
                         if(responseData.hasOwnProperty(key)){
-                            if(responseData[key].fieldName === 'customerId')
-                            {
-                                customerId = responseData[key].currentValue;
-                            }
+                            customerId = responseData[key];
                         }
                     }
                     return customerId;
@@ -164,5 +215,77 @@ export class AppDataService{
             );
     }
 
+    addNewFeedback(feedback: FeedbackModel){
+        this.http.post(
+            'https://paycarz.firebaseio.com/feedbacks.json',
+            feedback
+        ).subscribe();
+
+        //updating the feedbackId
+        this.http.delete('https://paycarz.firebaseio.com/feedbackId.json').subscribe();
+        this.http.post(
+            'https://paycarz.firebaseio.com/feedbackId.json',
+            {
+                'currentValue': feedback.feedbackId
+            }
+        ).subscribe();
+    }
+
+    getCurrentFeedbackId(){
+        return this.http
+            .get<{ [key: string]: IdentifiersModel }>(
+                'https://paycarz.firebaseio.com/feedbackId.json'
+            )
+            .pipe(
+                map(responseData => {
+                    let feedbackId: IdentifiersModel;
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            feedbackId = responseData[key];
+                        }
+                    }
+                    return feedbackId;
+                })
+            );
+    }
+
+    getFeedbacks(){
+        return this.http
+            .get<{ [key: string]: FeedbackModel }>(
+                'https://paycarz.firebaseio.com/feedbacks.json'
+            )
+            .pipe(
+                map(responseData => {
+                    const feedbacksArray: FeedbackModel[] = [];
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            feedbacksArray.push({ ...responseData[key]});
+                        }
+                    }
+                    return feedbacksArray;
+                })
+            );
+    }
+
+    getHeaderImages(){
+        return this.http
+            .get<{ [key: string]: HeaderImageModel }>(
+                'https://paycarz.firebaseio.com/headerImages.json'
+            )
+            .pipe(
+                map(responseData => {
+                    const imagesArray: HeaderImageModel[] = [];
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            imagesArray.push({ ...responseData[key]});
+                        }
+                    }
+                    return imagesArray;
+                })
+            );
+    }
 
 }

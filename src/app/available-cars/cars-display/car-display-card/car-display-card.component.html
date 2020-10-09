@@ -1,0 +1,18 @@
+<div class="text-center py-3">
+    <div>
+        <img width="400px" src="{{imageUrl}}">
+    </div>
+    <div class="pb-1">
+        <div>
+            Price per KM: Rs. {{car.pricePerKm}}
+        </div>
+        <div>
+            Driver price: Rs. {{car.driverPrice}}
+        </div>
+    </div>
+    <div>
+        <form [formGroup]="viewCar" (ngSubmit)="onSubmit()">
+            <input type="submit" class="btn bg-yellow text-white font-weight-bold" formControlName="view">
+        </form>
+    </div>
+</div>

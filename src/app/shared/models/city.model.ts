@@ -1,5 +1,5 @@
 export interface CityModel{
-    cityId: number, 
-    cityName: string,
-    stateId: number
+    cityId: number; 
+    cityName: string;
+    stateId: number;
 }

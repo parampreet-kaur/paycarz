@@ -1,57 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { BookingModel } from '../shared/models/booking.model';
 import { CustomerModel } from '../shared/models/customer.model';
 import { AppDataService } from '../shared/services/app-data.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-signin-form',
   templateUrl: './signin-form.component.html',
   styleUrls: ['./signin-form.component.scss'],
-  providers: [AppDataService]
 })
-export class SigninFormComponent implements OnInit {
+export class SigninFormComponent implements OnInit, OnDestroy {
 
   signInForm: FormGroup;
-  isUserInvalid: boolean = false;
+  errorMessage: string = null;
+  authServiceSub: Subscription;
+  bookingDetails: BookingModel;
 
-  constructor(private appDataService: AppDataService, private router: Router) { }
+  constructor(private appDataService: AppDataService, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.signInForm = new FormGroup({
-      'username' : new FormControl(null, Validators.required),
+      'email' : new FormControl(null, [Validators.required, Validators.email]),
       'password' : new FormControl(null, Validators.required),
       'submitBtn' : new FormControl('SIGN IN')
     });
+    this.bookingDetails = this.route.snapshot.queryParams['bookingDetails'];
   }
 
   onSubmit(){
     if(this.signInForm.valid)
     {
-      this.isValidCustomer();
+      this.authServiceSub = this.authService.signIn(this.signInForm.value.email, this.signInForm.value.password)
+        .subscribe(responseData => {
+          if(this.bookingDetails)
+          {
+            this.router.navigate(['/paycarz-customer/available-cars'], { queryParams: {bookingDetails: this.bookingDetails}});
+          }
+          else{
+            this.router.navigate(['/paycarz-customer/app-customer-home-page']);
+          }
+        },
+        errorMessage => {
+          this.errorMessage = errorMessage;
+        });
     }
   }
 
-  isValidCustomer(){
-    let validCustomers: CustomerModel[];
-    this.appDataService.getCustomers().subscribe(customersList => {
-      
-      validCustomers = customersList.filter(customer => {
-        if(customer.username === this.signInForm.value.username && customer.password === this.signInForm.value.password)
-        {
-          return customer;
-        }
-      });
-
-      if(validCustomers.length != 0)
-      {
-        this.isUserInvalid = false;
-        this.router.navigate(['/paycarz/app-customer-home-page'], {queryParams: { customerId: validCustomers[0].customerId}});
-      }
-      else{
-        this.isUserInvalid = true;
-      }
-    });
+  ngOnDestroy(){
+    if(this.authServiceSub)
+      this.authServiceSub.unsubscribe();
   }
 
 }
