@@ -4,3 +4,19 @@ hr{
     width: 120px;
     border: 2px solid $primary-color;
 }
+
+.border-yellow{
+    border: 1px solid $primary-color;
+}
+
+.text-deco-underline{
+    text-decoration: underline;
+}
+
+.bg-yellow{
+    background-color: $primary-color;
+}
+
+.color-yellow{
+    color: $primary-color;
+}

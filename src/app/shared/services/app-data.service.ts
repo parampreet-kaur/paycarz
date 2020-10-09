@@ -12,6 +12,8 @@ import { CarModel } from '../models/car.model';
 import { CarImageModel } from '../models/car-image.model';
 import { FeedbackModel } from '../models/feedback.model';
 import { HeaderImageModel } from '../models/header-image.model';
+import { AgencyModel } from '../models/agency.model';
+import { AgencyOwnerModel } from '../models/agency-owner.model';
 
 export class AppDataService{
 
@@ -284,6 +286,44 @@ export class AppDataService{
                         }
                     }
                     return imagesArray;
+                })
+            );
+    }
+
+    getAgencies(){
+        return this.http
+            .get<{ [key: string]: AgencyModel }>(
+                'https://paycarz.firebaseio.com/agencies.json'
+            )
+            .pipe(
+                map(responseData => {
+                    const agenciesArray: AgencyModel[] = [];
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            agenciesArray.push({ ...responseData[key]});
+                        }
+                    }
+                    return agenciesArray;
+                })
+            );
+    }
+
+    getAgencyOwners(){
+        return this.http
+            .get<{ [key: string]: AgencyOwnerModel }>(
+                'https://paycarz.firebaseio.com/agencyOwners.json'
+            )
+            .pipe(
+                map(responseData => {
+                    const agencyOwnersArray: AgencyOwnerModel[] = [];
+                    for(const key in responseData)
+                    {
+                        if(responseData.hasOwnProperty(key)){
+                            agencyOwnersArray.push({ ...responseData[key]});
+                        }
+                    }
+                    return agencyOwnersArray;
                 })
             );
     }
