@@ -1,21 +1,23 @@
 <div class="text-center py-3">
-    <div *ngIf="isLoading" class="loading-div">
+    <div *ngIf="isLoading" class="loading-div m-auto d-flex align-items-center justify-content-center">
         <app-loading-page></app-loading-page>
     </div>
     <div *ngIf="!isLoading">
-        <img width="400px" src="{{imageUrl}}">
-    </div>
-    <div class="pb-1">
         <div>
-            Price per KM: Rs. {{car.pricePerKm}}
+            <img width="400px" src="{{imageUrl}}">
+        </div>
+        <div class="pb-1">
+            <div>
+                Price per KM: Rs. {{car.pricePerKm}}
+            </div>
+            <div>
+                Driver price: Rs. {{car.driverPrice}}
+            </div>
         </div>
         <div>
-            Driver price: Rs. {{car.driverPrice}}
+            <form [formGroup]="viewCar" (ngSubmit)="onSubmit()">
+                <input type="submit" class="btn bg-yellow text-white font-weight-bold" formControlName="view">
+            </form>
         </div>
-    </div>
-    <div>
-        <form [formGroup]="viewCar" (ngSubmit)="onSubmit()">
-            <input type="submit" class="btn bg-yellow text-white font-weight-bold" formControlName="view">
-        </form>
     </div>
 </div>

@@ -47,6 +47,7 @@ export class SigninFormComponent implements OnInit, OnDestroy {
           }
         },
         errorMessage => {
+          this.isLoading = false;
           this.errorMessage = errorMessage;
         });
     }

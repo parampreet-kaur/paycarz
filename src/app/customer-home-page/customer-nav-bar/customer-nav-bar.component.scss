@@ -7,8 +7,16 @@ $secondary-color: #6c757d;
 
 a{
     color: $secondary-color;
+
+    &.active{
+        background-color: $light-color !important;
+        color: $secondary-color !important;
+        border: 1px solid $secondary-color;
+    }
+
     &:hover{
         background-color: darken($light-color, 3%) !important;
+        color: darken($secondary-color, 30%);
     }
 }
 

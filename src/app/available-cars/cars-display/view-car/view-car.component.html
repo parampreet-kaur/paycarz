@@ -1,6 +1,9 @@
 <div class="text-center m-auto py-5">
     <h1 class="text-secondary">Car View</h1>
     <hr>
+    <div class="alert alert-danger text-center w-50 m-auto" *ngIf="errorMessage">
+        <span>{{errorMessage}}</span>
+    </div>
     <div class="">
         <h4 class="text-secondary pt-5 font-weight-bold">Car Images</h4>
         <div class="d-flex flex-wrap justify-content-center">
@@ -9,11 +12,11 @@
             </div>
         </div>
     </div>  
-    <div class="text-secondary">
+    <div class="text-secondary m-auto w-75">
         <h4 class="pt-5 font-weight-bold pb-3">Booking details</h4>
-        <div class="d-flex border-yellow mx-3">
+        <div class="d-flex border-yellow mx-3 bg-light">
             <div class="text-center w-50 border-yellow">
-                <div class="m-auto p-2 pb-3 px-5 w-50">
+                <div class="m-auto p-2 pb-3 px-5 w-75">
                     <div class="text-center text-deco-underline py-3">
                         <h4>Car details</h4>
                     </div>
@@ -41,7 +44,7 @@
             </div>
 
             <div class="text-center w-50 border-yellow">
-                <div class="m-auto p-2 pb-3 px-3 w-50" *ngIf="carAgency">
+                <div class="m-auto p-2 pb-3 px-3 w-75" *ngIf="carAgency">
                     <div class="text-center text-deco-underline py-3">
                         <h4>Agency details</h4>
                     </div>
@@ -87,9 +90,14 @@
         </div>
     
         <div *ngIf="isBooked">
-            <h3 class="color-yellow">Congratulations, your car is booked!</h3>
-            <div class="note">(Note: This app was made just for Angular practice purpose. If you have any feedback for the developer of this project, then click below link and go to the <span class="font-weight-bold">Contact</span> section of the Home page and provide your valuable feedback there.)</div>
+            <div [@animateState]="state" class="color-yellow font-weight-bold height-40">Congratulations, your car is booked!</div>
+            <div class="note pt-2">(Note: If you have any feedback for the developer of this project, then kindly click on the below link to logout and go to the <span class="font-weight-bold">Contact</span> section of the Home page and provide your valuable feedback there.)</div>
             <a class="nav-link cursor-pointer" (click)="logout()">Logout and go to Home page</a>
+        </div>
+        <div *ngIf="isBooked">
+            <form [formGroup]="cancelCar" (ngSubmit)="onCarCancel()">
+                <input type="submit" class="btn bg-yellow text-white font-weight-bold" formControlName="cancel">
+            </form>
         </div>
     </div>
     

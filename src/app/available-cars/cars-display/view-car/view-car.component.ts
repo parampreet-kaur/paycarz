@@ -1,8 +1,8 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AgencyOwnerModel } from 'src/app/shared/models/agency-owner.model';
 import { AgencyModel } from 'src/app/shared/models/agency.model';
 import { BookingModel } from 'src/app/shared/models/booking.model';
 import { CarModel } from 'src/app/shared/models/car.model';
@@ -12,10 +12,23 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 @Component({
   selector: 'app-view-car',
   templateUrl: './view-car.component.html',
-  styleUrls: ['./view-car.component.scss']
+  styleUrls: ['./view-car.component.scss'],
+  animations: [
+    trigger('animateState', [
+      state('normal', style({
+        'font-size': 'initial'
+      })),
+      state('enlarge', style({
+        'font-size': 'x-large'
+      })),
+      transition('normal => enlarge', animate(200)),
+    ])
+  ]
 })
 export class ViewCarComponent implements OnInit, OnDestroy {
 
+  state = 'normal';
+  timer: any;
   bookCar: FormGroup;
   isBooked: boolean;
   errorMessage: string;
@@ -27,6 +40,8 @@ export class ViewCarComponent implements OnInit, OnDestroy {
   carAgency: AgencyModel;
   agenciesSub: Subscription;
 
+  cancelCar: FormGroup;
+
   categoriesSub: Subscription;
   subCategoriesSub: Subscription;
 
@@ -36,6 +51,10 @@ export class ViewCarComponent implements OnInit, OnDestroy {
     this.bookCar = new FormGroup({
       'book' : new FormControl("Book")
     });
+
+    this.cancelCar = new FormGroup({
+      'cancel': new FormControl('Cancel Booking')
+    })
     this.bookingDetails = JSON.parse(this.route.snapshot.queryParams['bookingDetails']);
     this.selectedCar = JSON.parse(this.route.snapshot.queryParams['car']);
     this.imagesUrlList = JSON.parse(this.route.snapshot.queryParams['imagesUrlList']);
@@ -53,7 +72,7 @@ export class ViewCarComponent implements OnInit, OnDestroy {
       if(categoryNames)
         this.categoryName = categoryNames[0];
     }, error => {
-      this.errorMessage = "An unknown error occurred!";
+      this.errorMessage = "Unknown error occurred!";
     });
 
     this.subCategoriesSub = this.appDataService.getSubCategories().subscribe(subCategoriesList => {
@@ -69,7 +88,7 @@ export class ViewCarComponent implements OnInit, OnDestroy {
       if(subCategoryNames)
         this.subCategoryName = subCategoryNames[0];
     }, error => {
-      this.errorMessage = "An unknown error occurred!";
+      this.errorMessage = "Unknown error occurred!";
     });
 
     this.agenciesSub = this.appDataService.getAgencies().subscribe(agenciesList => {
@@ -81,14 +100,20 @@ export class ViewCarComponent implements OnInit, OnDestroy {
       });
       this.carAgency = selectedAgency[0];
     }, error => {
-      this.errorMessage = "An unknown error occurred!";
+      this.errorMessage = "Unknown error occurred!";
     });
-
-    
   }
 
   onSubmit(){
     this.isBooked = true;
+    this.timer = setTimeout(() => {
+      this.state = 'enlarge';
+    }, 50);
+  }
+
+  onCarCancel(){
+    this.isBooked = false;
+    this.state = 'normal';
   }
 
   logout(){
@@ -96,6 +121,7 @@ export class ViewCarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    clearTimeout(this.timer);
     if(this.categoriesSub)
       this.categoriesSub.unsubscribe();
     if(this.subCategoriesSub)

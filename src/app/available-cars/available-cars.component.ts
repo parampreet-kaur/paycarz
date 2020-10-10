@@ -15,6 +15,7 @@ export class AvailableCarsComponent implements OnInit, OnDestroy {
   bookingDetails: BookingModel;
   availableCars: CarModel[];
   carsSub: Subscription;
+  errorMessage: string;
 
   constructor(private route: ActivatedRoute, private appDataService: AppDataService) { }
 
@@ -28,6 +29,8 @@ export class AvailableCarsComponent implements OnInit, OnDestroy {
             return car;
         }
       });
+    },  error => {
+      this.errorMessage = "Unknown error occurred!";
     });
   }
 
